@@ -78,7 +78,7 @@ namespace RownanieLiniowe
                 for (int j = 0; j < N; j++) {
                     A[i, j] = random.Next(-10, 20);
                     dataGridView1[i, j].Value = A[i, j].ToString();
-
+                    // Dupa
                     suma += (int)A[j, i];
                 }
                 B[i] = suma;
