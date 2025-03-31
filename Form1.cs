@@ -21,13 +21,13 @@ namespace RownanieLiniowe {
 
         private void UstawRozmiarMacierzy() {
             N = (int)numericUpDown1.Value;
-            A = new double[N, N];
-            B = new double[N];
-            X = new double[N];
+            A = new double[N + 1, N + 1];
+            B = new double[N + 1];
+            X = new double[N + 1];
 
-            A_zesp = new Complex[N, N];
-            B_zesp = new Complex[N];
-            X_zesp = new Complex[N];
+            A_zesp = new Complex[N + 1, N + 1];
+            B_zesp = new Complex[N + 1];
+            X_zesp = new Complex[N + 1];
 
 
             UstawTablice();
@@ -64,25 +64,19 @@ namespace RownanieLiniowe {
 
         private void generujBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
-                double Ax, suma = 0;
-                Random R = new Random(); //Generator liczb losowych
-                N = (int)numericUpDown1.Value;//Odczyt liczby równań liniowych
-                UstawTablice();
-                //Inicjalizacja macierzy A oraz wektorów B,X
-                A = new double[N + 1, N + 1];
-                B = new double[N + 1];
-                X = new double[N + 1];
-                //Generacja macierzy A oraz wektora wyrazów wolnych B
+                double suma = 0;
+                Random random = new Random();
+
                 for (int i = 1; i <= N; i++) {
                     suma = 0;
                     for (int j = 1; j <= N; j++) {
-                        Ax = R.Next(1, 100); //losowanie liczb z przedziału od 1 do 100
-                        dataGridView1[j - 1, i - 1].Value = Ax.ToString();
-                        A[i, j] = Ax; //i-ty wiersz , j-ta kolumna
-                        suma += Ax;
+                        A[i, j] = random.NextDouble() * 100 - 50;
+                        dataGridView1[j - 1, i - 1].Value = A[i, j].ToString("0.00");
+
+                        suma += A[i, j];
                     }
-                    B[i] = suma;//Jako suma elementow i-tego wiersza macierzy A[i,j]
-                    dataGridView3[0, i - 1].Value = suma.ToString();
+                    B[i] = suma;
+                    dataGridView3[0, i - 1].Value = suma.ToString("0.00");
                 }
 
 
@@ -91,20 +85,19 @@ namespace RownanieLiniowe {
                 Complex suma;
                 Random random = new Random();
 
-                for (int i = 0; i < N; i++) {
-                    suma = new Complex(0, 0); // Poprawna inicjalizacja liczby zespolonej
-                    for (int j = 0; j < N; j++) {
-                        double realPart = random.NextDouble() * 100 - 50;  // Losowa część rzeczywista
-                        double imagPart = random.NextDouble() * 100 - 50;  // Losowa część urojona
+                for (int i = 1; i <= N; i++) {
+                    suma = new Complex(0, 0);
+                    for (int j = 1; j <= N; j++) {
+                        double realPart = random.NextDouble() * 100 - 50;
+                        double imagPart = random.NextDouble() * 100 - 50;
                         A_zesp[i, j] = new Complex(realPart, imagPart);
 
-                        // Wyświetlanie liczby zespolonej w DataGridView
-                        dataGridView1[j, i].Value = $"{A_zesp[i, j].Real:0.00} + {A_zesp[i, j].Imaginary:0.00}i";
+                        dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} + {A_zesp[i, j].Imaginary:0.00}i";
 
                         suma += A_zesp[i, j];
                     }
                     B_zesp[i] = suma;
-                    dataGridView3[0, i].Value = $"{suma.Real:0.00} + {suma.Imaginary:0.00}i"; // Wyświetlanie sumy zespolonej
+                    dataGridView3[0, i - 1].Value = $"{suma.Real:0.00} + {suma.Imaginary:0.00}i";
                 }
             }
         }
@@ -114,35 +107,35 @@ namespace RownanieLiniowe {
                 int suma = 0;
                 Random random = new Random();
 
-                for (int i = 0; i < N; i++) {
+                for (int i = 1; i <= N; i++) {
                     suma = 0;
-                    for (int j = 0; j < N; j++) {
+                    for (int j = 1; j <= N; j++) {
                         A[i, j] = random.Next(-10, 10);
-                        dataGridView1[j, i].Value = A[i, j].ToString();
+                        dataGridView1[j - 1, i - 1].Value = A[i, j].ToString();
+
                         suma += (int)A[i, j];
                     }
                     B[i] = suma;
-                    dataGridView3[0, i].Value = suma.ToString();
+                    dataGridView3[0, i - 1].Value = suma.ToString();
                 }
             }
             else if (zespoloneRBtn.Checked) {
                 Complex suma;
                 Random random = new Random();
 
-                for (int i = 0; i < N; i++) {
-                    suma = new Complex(0, 0); // Poprawna inicjalizacja liczby zespolonej
-                    for (int j = 0; j < N; j++) {
-                        int realPart = random.Next(-10,10);  // Losowa część rzeczywista
-                        int imagPart = random.Next(-10,10);  // Losowa część urojona
+                for (int i = 1; i <= N; i++) {
+                    suma = new Complex(0, 0);
+                    for (int j = 1; j <= N; j++) {
+                        int realPart = random.Next(-10,10);
+                        int imagPart = random.Next(-10,10);
                         A_zesp[i, j] = new Complex(realPart, imagPart);
 
-                        // Wyświetlanie liczby zespolonej w DataGridView
-                        dataGridView1[j, i].Value = $"{A_zesp[i, j].Real} + {A_zesp[i, j].Imaginary}i";
+                        dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real} + {A_zesp[i, j].Imaginary}i";
 
                         suma += A_zesp[i, j];
                     }
                     B_zesp[i] = suma;
-                    dataGridView3[0, i].Value = $"{suma.Real} + {suma.Imaginary}i"; // Wyświetlanie sumy zespolonej
+                    dataGridView3[0, i - 1].Value = $"{suma.Real} + {suma.Imaginary}i";
                 }
             }
 
@@ -152,28 +145,25 @@ namespace RownanieLiniowe {
             if (rzeczywisteRBtn.Checked) {
                 {
                     int blad;
-                    //Metoda statyczna RozRowMacGaussa nie wymaga inicjalizacji obiektu klasy
-                    //MetodaGaussa lecz bezpośrednio odwołuje się do definicji klasy
                     blad = MetodaGaussa.RozRowMacGaussa(A, B, X, 1e-30);
                     if (blad == 0)
                         for (int i = 1; i <= N; i++)
                             dataGridView2[0, i - 1].Value = X[i].ToString("0.000000000000");
                     else MetodaGaussa.PiszKomunikat(blad);
                 }
-                }
+            }
             else if (zespoloneRBtn.Checked) {
-                int blad = MetodaGaussa.RozRowMacGaussa(A_zesp, B_zesp, X_zesp, 1e-30);
-                if (blad == 0) {
-                    for (int i = 0; i < N; i++) {
-                        dataGridView2[0, i].Value = X_zesp[i].ToString("0.000000000000");
-                    }
+                {
+                    int blad;
+                    blad = MetodaGaussa.RozRowMacGaussa(A_zesp, B_zesp, X_zesp, 1e-30);
+                    if (blad == 0)
+                        for (int i = 1; i <= N; i++)
+                            dataGridView2[0, i - 1].Value = X_zesp[i].ToString("0.000000000000");
+                    else MetodaGaussa.PiszKomunikat(blad);
                 }
-                else {
-                    MetodaGaussa.PiszKomunikat(blad);
-                }
+
             }
 
         }
-
     }
 }
