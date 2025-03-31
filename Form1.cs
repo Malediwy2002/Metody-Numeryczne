@@ -64,20 +64,28 @@ namespace RownanieLiniowe {
 
         private void generujBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
-                double suma = 0;
-                Random random = new Random();
-
-                for (int i = 0; i < N; i++) {
+                double Ax, suma = 0;
+                Random R = new Random(); //Generator liczb losowych
+                N = (int)numericUpDown1.Value;//Odczyt liczby równań liniowych
+                UstawTablice();
+                //Inicjalizacja macierzy A oraz wektorów B,X
+                A = new double[N + 1, N + 1];
+                B = new double[N + 1];
+                X = new double[N + 1];
+                //Generacja macierzy A oraz wektora wyrazów wolnych B
+                for (int i = 1; i <= N; i++) {
                     suma = 0;
-                    for (int j = 0; j < N; j++) {
-                        A[i, j] = random.NextDouble() * 100 - 50;
-                        dataGridView1[j, i].Value = A[i, j].ToString("0.00");
-
-                        suma += A[i, j];
+                    for (int j = 1; j <= N; j++) {
+                        Ax = R.Next(1, 100); //losowanie liczb z przedziału od 1 do 100
+                        dataGridView1[j - 1, i - 1].Value = Ax.ToString();
+                        A[i, j] = Ax; //i-ty wiersz , j-ta kolumna
+                        suma += Ax;
                     }
-                    B[i] = suma;
-                    dataGridView3[0, i].Value = suma.ToString("0.00");
+                    B[i] = suma;//Jako suma elementow i-tego wiersza macierzy A[i,j]
+                    dataGridView3[0, i - 1].Value = suma.ToString();
                 }
+
+
             }
             else if (zespoloneRBtn.Checked) {
                 Complex suma;
@@ -142,21 +150,22 @@ namespace RownanieLiniowe {
 
         private void obliczBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
-                int blad = MetodaGaussa.RozRowMacGaussa(A, B, X, 1e-30);
-                if (blad == 0) {
-                    for (int i = 0; i < N; i++) {
-                        dataGridView2[0, i].Value = X[i].ToString("0.000000000000");
-                    }
+                {
+                    int blad;
+                    //Metoda statyczna RozRowMacGaussa nie wymaga inicjalizacji obiektu klasy
+                    //MetodaGaussa lecz bezpośrednio odwołuje się do definicji klasy
+                    blad = MetodaGaussa.RozRowMacGaussa(A, B, X, 1e-30);
+                    if (blad == 0)
+                        for (int i = 1; i <= N; i++)
+                            dataGridView2[0, i - 1].Value = X[i].ToString("0.000000000000");
+                    else MetodaGaussa.PiszKomunikat(blad);
                 }
-                else {
-                    MetodaGaussa.PiszKomunikat(blad);
                 }
-            }
             else if (zespoloneRBtn.Checked) {
                 int blad = MetodaGaussa.RozRowMacGaussa(A_zesp, B_zesp, X_zesp, 1e-30);
                 if (blad == 0) {
                     for (int i = 0; i < N; i++) {
-                        dataGridView2[0, i].Value = X[i].ToString("0.000000000000");
+                        dataGridView2[0, i].Value = X_zesp[i].ToString("0.000000000000");
                     }
                 }
                 else {
