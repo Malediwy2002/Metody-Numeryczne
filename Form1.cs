@@ -81,22 +81,25 @@ namespace RownanieLiniowe {
 
             }
             else if (zespoloneRBtn.Checked) {
-                Complex suma;
                 Random random = new Random();
 
                 for (int i = 1; i <= N; i++) {
-                    suma = new Complex(0, 0);
                     for (int j = 1; j <= N; j++) {
-                        double realPart = random.NextDouble() * 100 - 50;
-                        double imagPart = random.NextDouble() * 100 - 50;
-                        A_zesp[i, j] = new Complex(realPart, imagPart);
+                        A_zesp[i, j] = new Complex(random.NextDouble() * 100 - 50, random.NextDouble() * 100 - 50);
 
-                        dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} {A_zesp[i, j].Imaginary:0.00}i";
-
-                        suma += A_zesp[i, j];
+                        if (A_zesp[i, j].Imaginary >= 0)
+                            dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} +{A_zesp[i, j].Imaginary:0.00}i";
+                        else
+                            dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} {A_zesp[i, j].Imaginary:0.00}i";
+                        
                     }
-                    B_zesp[i] = suma;
-                    dataGridView3[0, i - 1].Value = $"{suma.Real:0.00} {suma.Imaginary:0.00}i";
+
+                    B_zesp[i] = new Complex(random.NextDouble() * 100 - 50, random.NextDouble() * 100 - 50);
+
+                    if (B_zesp[i].Imaginary >= 0)
+                        dataGridView3[0, i - 1].Value = $"{B_zesp[i].Real:0.00} +{B_zesp[i].Imaginary:0.00}i";
+                    else
+                        dataGridView3[0, i - 1].Value = $"{B_zesp[i].Real:0.00} {B_zesp[i].Imaginary:0.00}i";
                 }
             }
         }
@@ -126,16 +129,22 @@ namespace RownanieLiniowe {
                 for (int i = 1; i <= N; i++) {
                     suma = new Complex(0, 0);
                     for (int j = 1; j <= N; j++) {
-                        int realPart = random.Next(-10,10);
-                        int imagPart = random.Next(-10,10);
-                        A_zesp[i, j] = new Complex(realPart, imagPart);
 
-                        dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real} + {A_zesp[i, j].Imaginary}i";
+                        A_zesp[i, j] = new Complex(random.Next(-10, 10), random.Next(-10, 10));
+
+                        if (A_zesp[i, j].Imaginary >= 0)
+                            dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real} +{A_zesp[i, j].Imaginary}i";
+                        else
+                            dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real} {A_zesp[i, j].Imaginary}i";
 
                         suma += A_zesp[i, j];
                     }
                     B_zesp[i] = suma;
-                    dataGridView3[0, i - 1].Value = $"{suma.Real} + {suma.Imaginary}i";
+
+                    if (suma.Imaginary >= 0)
+                        dataGridView3[0, i - 1].Value = $"{suma.Real} +{suma.Imaginary}i";
+                    else
+                        dataGridView3[0, i - 1].Value = $"{suma.Real} {suma.Imaginary}i";
                 }
             }
 
