@@ -58,25 +58,24 @@ namespace RownanieLiniowe {
             }
         }
 
+        // NUMERIC
         private void numericUpDown1_ValueChanged(object sender, EventArgs e) {
             UstawRozmiarMacierzy();
         }
 
+        // GENERUJ
         private void generujBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
-                double suma = 0;
                 Random random = new Random();
 
                 for (int i = 1; i <= N; i++) {
-                    suma = 0;
                     for (int j = 1; j <= N; j++) {
                         A[i, j] = random.NextDouble() * 100 - 50;
                         dataGridView1[j - 1, i - 1].Value = A[i, j].ToString("0.00");
 
-                        suma += A[i, j];
                     }
-                    B[i] = suma;
-                    dataGridView3[0, i - 1].Value = suma.ToString("0.00");
+                    B[i] = random.NextDouble() * 100 - 50;
+                    dataGridView3[0, i - 1].Value = B[i].ToString("0.00");
                 }
 
 
@@ -92,16 +91,17 @@ namespace RownanieLiniowe {
                         double imagPart = random.NextDouble() * 100 - 50;
                         A_zesp[i, j] = new Complex(realPart, imagPart);
 
-                        dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} + {A_zesp[i, j].Imaginary:0.00}i";
+                        dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} {A_zesp[i, j].Imaginary:0.00}i";
 
                         suma += A_zesp[i, j];
                     }
                     B_zesp[i] = suma;
-                    dataGridView3[0, i - 1].Value = $"{suma.Real:0.00} + {suma.Imaginary:0.00}i";
+                    dataGridView3[0, i - 1].Value = $"{suma.Real:0.00} {suma.Imaginary:0.00}i";
                 }
             }
         }
 
+        // TEST
         private void testBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
                 int suma = 0;
@@ -141,6 +141,7 @@ namespace RownanieLiniowe {
 
         }
 
+        // OBLICZ
         private void obliczBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
                 {
