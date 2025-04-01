@@ -58,10 +58,12 @@ namespace RownanieLiniowe {
             }
         }
 
+        // NUMERIC
         private void numericUpDown1_ValueChanged(object sender, EventArgs e) {
             UstawRozmiarMacierzy();
         }
 
+        // GENERUJ
         private void generujBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
                 double suma = 0;
@@ -92,16 +94,17 @@ namespace RownanieLiniowe {
                         double imagPart = random.NextDouble() * 100 - 50;
                         A_zesp[i, j] = new Complex(realPart, imagPart);
 
-                        dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} + {A_zesp[i, j].Imaginary:0.00}i";
+                        dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} {A_zesp[i, j].Imaginary:0.00}i";
 
                         suma += A_zesp[i, j];
                     }
                     B_zesp[i] = suma;
-                    dataGridView3[0, i - 1].Value = $"{suma.Real:0.00} + {suma.Imaginary:0.00}i";
+                    dataGridView3[0, i - 1].Value = $"{suma.Real:0.00} {suma.Imaginary:0.00}i";
                 }
             }
         }
 
+        // TEST
         private void testBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
                 int suma = 0;
@@ -141,6 +144,7 @@ namespace RownanieLiniowe {
 
         }
 
+        // OBLICZ
         private void obliczBtn_Click(object sender, EventArgs e) {
             if (rzeczywisteRBtn.Checked) {
                 {
