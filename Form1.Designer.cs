@@ -147,8 +147,8 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.ForeColor = System.Drawing.Color.Gainsboro;
             this.label4.Location = new System.Drawing.Point(11, 16);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
@@ -172,13 +172,14 @@
             // obliczBtn
             // 
             this.obliczBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.obliczBtn.Enabled = false;
             this.obliczBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.obliczBtn.FlatAppearance.BorderSize = 3;
             this.obliczBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.obliczBtn.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.obliczBtn.Location = new System.Drawing.Point(674, 61);
             this.obliczBtn.Name = "obliczBtn";
-            this.obliczBtn.Size = new System.Drawing.Size(147, 29);
+            this.obliczBtn.Size = new System.Drawing.Size(143, 29);
             this.obliczBtn.TabIndex = 10;
             this.obliczBtn.Text = "Oblicz";
             this.obliczBtn.UseVisualStyleBackColor = false;
@@ -190,7 +191,7 @@
             this.groupBox1.Controls.Add(this.zespoloneRBtn);
             this.groupBox1.Controls.Add(this.rzeczywisteRBtn);
             this.groupBox1.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox1.Location = new System.Drawing.Point(604, 5);
+            this.groupBox1.Location = new System.Drawing.Point(600, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(217, 50);
             this.groupBox1.TabIndex = 11;
@@ -224,7 +225,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(840, 473);
+            this.ClientSize = new System.Drawing.Size(832, 473);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.obliczBtn);
             this.Controls.Add(this.testBtn);
@@ -239,7 +240,8 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
-            this.Text = "Równanie Liniowe";
+            this.ShowIcon = false;
+            this.Text = "Metody Numeryczne";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

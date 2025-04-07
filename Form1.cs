@@ -4,13 +4,6 @@ using BibKlas.AlgebraLiniowa;
 using System.Numerics;
 using System.ComponentModel;
 
-// TO DO:
-/*
- * pobieranie po wpisaniu danych do tabeli (dodać taką możliwość) aktualnie dane są zapisywane od razu po generacji i nie ma możliwości wpisania własnych danych
- * następnym razem będziemy robić równania Newtona (cała gotowa biblioteka Newtona jest dostępna na moodlu)
- * poprawić czytelność aplikacji, większe pola itd. zrobić ładniejszą, dezaktywować przycisk ponownego obliczania po wciśnieciu go raz
- */
-
 namespace RownanieLiniowe {
     public partial class Form1 : Form {
         int N = 0;
@@ -65,6 +58,7 @@ namespace RownanieLiniowe {
                 dataGridView3.Rows[i].HeaderCell.Value = (i + 1).ToString();
             }
             dataGridView2.ReadOnly = true;
+            obliczBtn.Enabled = false;
         }
 
         // NUMERIC
@@ -134,6 +128,7 @@ namespace RownanieLiniowe {
                     }
                     B[i] = suma;
                     dataGridView3[0, i - 1].Value = suma.ToString();
+                    dataGridView2[0, i - 1].Value = "";
                 }
             }
             else if (zespoloneRBtn.Checked) {
@@ -159,6 +154,7 @@ namespace RownanieLiniowe {
                         dataGridView3[0, i - 1].Value = $"{suma.Real} +{suma.Imaginary}i";
                     else
                         dataGridView3[0, i - 1].Value = $"{suma.Real} {suma.Imaginary}i";
+                    dataGridView2[0, i - 1].Value = "";
                 }
             }
 
