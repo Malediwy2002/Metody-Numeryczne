@@ -4,6 +4,13 @@ using BibKlas.AlgebraLiniowa;
 using System.Numerics;
 using System.ComponentModel;
 
+// TO DO:
+/*
+ * pobieranie po wpisaniu danych do tabeli (dodać taką możliwość) aktualnie dane są zapisywane od razu po generacji i nie ma możliwości wpisania własnych danych
+ * następnym razem będziemy robić równania Newtona (cała gotowa biblioteka Newtona jest dostępna na moodlu)
+ * poprawić czytelność aplikacji, większe pola itd. zrobić ładniejszą, dezaktywować przycisk ponownego obliczania po wciśnieciu go raz
+ */
+
 namespace RownanieLiniowe {
     public partial class Form1 : Form {
         int N = 0;
@@ -44,18 +51,20 @@ namespace RownanieLiniowe {
             dataGridView1.ColumnHeadersHeight = 50;
             dataGridView2.ColumnHeadersHeight = 50;
             dataGridView3.ColumnHeadersHeight = 50;
+            dataGridView1.RowHeadersWidth = 50;
             dataGridView3.Columns[0].Width = 90;
             dataGridView2.Columns[0].Width = 104;
 
             for (int i = 0; i < N; i++) {
                 if (rzeczywisteRBtn.Checked) {
-                    dataGridView1.Columns[i].Width = 90;
+                    dataGridView1.Columns[i].Width = 75;
                 }
                 dataGridView1.Columns[i].HeaderText = (i + 1).ToString();
                 dataGridView1.Rows[i].HeaderCell.Value = (i + 1).ToString();
                 dataGridView2.Rows[i].HeaderCell.Value = (i + 1).ToString();
                 dataGridView3.Rows[i].HeaderCell.Value = (i + 1).ToString();
             }
+            dataGridView2.ReadOnly = true;
         }
 
         // NUMERIC
@@ -65,17 +74,17 @@ namespace RownanieLiniowe {
 
         // GENERUJ
         private void generujBtn_Click(object sender, EventArgs e) {
+            obliczBtn.Enabled = true;
             if (rzeczywisteRBtn.Checked) {
                 Random random = new Random();
 
                 for (int i = 1; i <= N; i++) {
                     for (int j = 1; j <= N; j++) {
-                        A[i, j] = random.NextDouble() * 100 - 50;
-                        dataGridView1[j - 1, i - 1].Value = A[i, j].ToString("0.00");
+                        dataGridView1[j - 1, i - 1].Value = (random.NextDouble() * 100 - 50).ToString("0.00");
 
                     }
-                    B[i] = random.NextDouble() * 100 - 50;
-                    dataGridView3[0, i - 1].Value = B[i].ToString("0.00");
+                    dataGridView3[0, i - 1].Value = (random.NextDouble() * 100 - 50).ToString("0.00");
+                    dataGridView2[0, i - 1].Value = "";
                 }
 
 
@@ -91,7 +100,6 @@ namespace RownanieLiniowe {
                             dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} +{A_zesp[i, j].Imaginary:0.00}i";
                         else
                             dataGridView1[j - 1, i - 1].Value = $"{A_zesp[i, j].Real:0.00} {A_zesp[i, j].Imaginary:0.00}i";
-                        
                     }
 
                     B_zesp[i] = new Complex(random.NextDouble() * 100 - 50, random.NextDouble() * 100 - 50);
@@ -100,12 +108,18 @@ namespace RownanieLiniowe {
                         dataGridView3[0, i - 1].Value = $"{B_zesp[i].Real:0.00} +{B_zesp[i].Imaginary:0.00}i";
                     else
                         dataGridView3[0, i - 1].Value = $"{B_zesp[i].Real:0.00} {B_zesp[i].Imaginary:0.00}i";
+                    dataGridView2[0, i - 1].Value = "";
                 }
             }
         }
 
+        private void CellValueChanged1(object sender, DataGridViewCellEventArgs e) {
+            obliczBtn.Enabled = true;
+        }
+
         // TEST
         private void testBtn_Click(object sender, EventArgs e) {
+            obliczBtn.Enabled = true;
             if (rzeczywisteRBtn.Checked) {
                 int suma = 0;
                 Random random = new Random();
@@ -152,28 +166,65 @@ namespace RownanieLiniowe {
 
         // OBLICZ
         private void obliczBtn_Click(object sender, EventArgs e) {
-            if (rzeczywisteRBtn.Checked) {
-                {
-                    int blad;
-                    blad = MetodaGaussa.RozRowMacGaussa(A, B, X, 1e-30);
-                    if (blad == 0)
-                        for (int i = 1; i <= N; i++)
-                            dataGridView2[0, i - 1].Value = X[i].ToString("0.000000000000");
-                    else MetodaGaussa.PiszKomunikat(blad);
+            obliczBtn.Enabled = false;
+
+            int err = 0;
+
+            for (int i = 1; i <= N; i++) {
+                for (int j = 1; j <= N; j++) {
+                    if (dataGridView1[j - 1, i - 1].Value == null) {
+                        err = 1;
+                    }
+                }
+                if (dataGridView3[0, i - 1].Value == null) {
+                    err = 1;
                 }
             }
-            else if (zespoloneRBtn.Checked) {
-                {
-                    int blad;
-                    blad = MetodaGaussa.RozRowMacGaussa(A_zesp, B_zesp, X_zesp, 1e-30);
-                    if (blad == 0)
-                        for (int i = 1; i <= N; i++)
-                            dataGridView2[0, i - 1].Value = X_zesp[i].ToString("0.000000000000");
-                    else MetodaGaussa.PiszKomunikat(blad);
+
+
+            if (err == 0) {
+                if (rzeczywisteRBtn.Checked) {
+                    {
+                        for (int i = 1; i <= N; i++) {
+                            for (int j = 1; j <= N; j++) {
+                                A[i, j] = double.Parse(dataGridView1[j - 1, i - 1].Value.ToString());
+                            }
+                            B[i] = double.Parse(dataGridView3[0, i - 1].Value.ToString());
+                            X[i] = 0.0;
+                        }
+
+                        int blad;
+                        blad = MetodaGaussa.RozRowMacGaussa(A, B, X, 1e-30);
+                        if (blad == 0)
+                            for (int i = 1; i <= N; i++)
+                                dataGridView2[0, i - 1].Value = X[i].ToString("0.0000");
+                        else MetodaGaussa.PiszKomunikat(blad);
+                    }
                 }
+                else if (zespoloneRBtn.Checked) {
+                    {
+                        for (int i = 1; i <= N; i++) {
+                            for (int j = 1; j <= N; j++) {
+                                string[] liczba = dataGridView1[j - 1, i - 1].Value.ToString().Split(new char[] { ' ', '+', 'i' }, StringSplitOptions.RemoveEmptyEntries);
+                                A_zesp[i, j] = new Complex(double.Parse(liczba[0]), double.Parse(liczba[1]));
+                            }
+                            string[] liczba2 = dataGridView3[0, i - 1].Value.ToString().Split(new char[] { ' ', '+', 'i' }, StringSplitOptions.RemoveEmptyEntries);
+                            B_zesp[i] = new Complex(double.Parse(liczba2[0]), double.Parse(liczba2[1]));
+                            X_zesp[i] = new Complex(0, 0);
+                        }
+                        int blad;
+                        blad = MetodaGaussa.RozRowMacGaussa(A_zesp, B_zesp, X_zesp, 1e-30);
+                        if (blad == 0)
+                            for (int i = 1; i <= N; i++)
+                                dataGridView2[0, i - 1].Value = X_zesp[i].ToString("0.0000");
+                        else MetodaGaussa.PiszKomunikat(blad);
+                    }
 
+                }
             }
-
+            else {
+                MessageBox.Show("Nie można wykonać obliczeń. Upewnij się, że wszystkie pola są wypełnione.");
+            }
         }
     }
 }

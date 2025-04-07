@@ -35,8 +35,8 @@
             this.testBtn = new System.Windows.Forms.Button();
             this.obliczBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rzeczywisteRBtn = new System.Windows.Forms.RadioButton();
             this.zespoloneRBtn = new System.Windows.Forms.RadioButton();
+            this.rzeczywisteRBtn = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -49,7 +49,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(11, 39);
+            this.label1.Location = new System.Drawing.Point(11, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 30);
             this.label1.TabIndex = 0;
@@ -59,7 +59,7 @@
             // 
             this.numericUpDown1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.numericUpDown1.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.numericUpDown1.Location = new System.Drawing.Point(56, 37);
+            this.numericUpDown1.Location = new System.Drawing.Point(56, 59);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -80,7 +80,7 @@
             this.generujBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.generujBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.generujBtn.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.generujBtn.Location = new System.Drawing.Point(340, 39);
+            this.generujBtn.Location = new System.Drawing.Point(340, 61);
             this.generujBtn.Name = "generujBtn";
             this.generujBtn.Size = new System.Drawing.Size(114, 29);
             this.generujBtn.TabIndex = 2;
@@ -92,17 +92,18 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 75);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 97);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.Size = new System.Drawing.Size(442, 363);
             this.dataGridView1.TabIndex = 3;
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellValueChanged1);
             // 
             // dataGridView2
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(484, 75);
+            this.dataGridView2.Location = new System.Drawing.Point(484, 97);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.Size = new System.Drawing.Size(157, 363);
@@ -112,10 +113,10 @@
             // 
             this.dataGridView3.AllowUserToAddRows = false;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(674, 75);
+            this.dataGridView3.Location = new System.Drawing.Point(674, 97);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersWidth = 51;
-            this.dataGridView3.Size = new System.Drawing.Size(114, 363);
+            this.dataGridView3.Size = new System.Drawing.Size(143, 363);
             this.dataGridView3.TabIndex = 5;
             // 
             // label2
@@ -123,7 +124,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(646, 240);
+            this.label2.Location = new System.Drawing.Point(646, 262);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 26);
@@ -135,7 +136,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(459, 240);
+            this.label3.Location = new System.Drawing.Point(459, 262);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(22, 26);
@@ -148,19 +149,19 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Yu Gothic UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(111, 4);
+            this.label4.Location = new System.Drawing.Point(11, 16);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(581, 30);
+            this.label4.Size = new System.Drawing.Size(464, 30);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Program do rozwiązywania układu równań liniowych AX=B";
+            this.label4.Text = "Rozwiązywanie układu równań liniowych AX=B";
             // 
             // testBtn
             // 
             this.testBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.testBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.testBtn.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.testBtn.Location = new System.Drawing.Point(484, 39);
+            this.testBtn.Location = new System.Drawing.Point(484, 61);
             this.testBtn.Name = "testBtn";
             this.testBtn.Size = new System.Drawing.Size(157, 29);
             this.testBtn.TabIndex = 9;
@@ -175,9 +176,9 @@
             this.obliczBtn.FlatAppearance.BorderSize = 3;
             this.obliczBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.obliczBtn.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.obliczBtn.Location = new System.Drawing.Point(674, 39);
+            this.obliczBtn.Location = new System.Drawing.Point(674, 61);
             this.obliczBtn.Name = "obliczBtn";
-            this.obliczBtn.Size = new System.Drawing.Size(114, 29);
+            this.obliczBtn.Size = new System.Drawing.Size(147, 29);
             this.obliczBtn.TabIndex = 10;
             this.obliczBtn.Text = "Oblicz";
             this.obliczBtn.UseVisualStyleBackColor = false;
@@ -189,12 +190,22 @@
             this.groupBox1.Controls.Add(this.zespoloneRBtn);
             this.groupBox1.Controls.Add(this.rzeczywisteRBtn);
             this.groupBox1.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox1.Location = new System.Drawing.Point(803, 4);
+            this.groupBox1.Location = new System.Drawing.Point(604, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(107, 434);
+            this.groupBox1.Size = new System.Drawing.Size(217, 50);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Wybierz";
+            // 
+            // zespoloneRBtn
+            // 
+            this.zespoloneRBtn.AutoSize = true;
+            this.zespoloneRBtn.Location = new System.Drawing.Point(110, 20);
+            this.zespoloneRBtn.Name = "zespoloneRBtn";
+            this.zespoloneRBtn.Size = new System.Drawing.Size(89, 21);
+            this.zespoloneRBtn.TabIndex = 1;
+            this.zespoloneRBtn.Text = "Zespolone";
+            this.zespoloneRBtn.UseVisualStyleBackColor = true;
             // 
             // rzeczywisteRBtn
             // 
@@ -208,22 +219,12 @@
             this.rzeczywisteRBtn.Text = "Rzeczywiste";
             this.rzeczywisteRBtn.UseVisualStyleBackColor = true;
             // 
-            // zespoloneRBtn
-            // 
-            this.zespoloneRBtn.AutoSize = true;
-            this.zespoloneRBtn.Location = new System.Drawing.Point(7, 44);
-            this.zespoloneRBtn.Name = "zespoloneRBtn";
-            this.zespoloneRBtn.Size = new System.Drawing.Size(89, 21);
-            this.zespoloneRBtn.TabIndex = 1;
-            this.zespoloneRBtn.Text = "Zespolone";
-            this.zespoloneRBtn.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(922, 450);
+            this.ClientSize = new System.Drawing.Size(840, 473);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.obliczBtn);
             this.Controls.Add(this.testBtn);
